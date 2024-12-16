@@ -9,8 +9,12 @@ if (isset($data['image'])) {
     $imageData = explode(',', $imageData)[1];
     $decodedImage = base64_decode($imageData);
 
-    // Chemin de sauvegarde
-    $filePath = __DIR__ . '/photo_' . time() . '.png';
+    // Chemin de sauvegarde (dans le dossier Resultat)
+    $directory = __DIR__ . '/Resultat';
+    if (!is_dir($directory)) {
+        mkdir($directory, 0777, true); // Crée le dossier si nécessaire
+    }
+    $filePath = $directory . '/photo_' . time() . '.png';
 
     // Écrit le fichier
     if (file_put_contents($filePath, $decodedImage)) {
